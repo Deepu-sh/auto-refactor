@@ -1,0 +1,35 @@
+name: Auto-Refactor  # Name of the workflow
+
+on:  
+  push:  # Run workflow on every push  
+  pull_request:  # Run workflow on every pull request
+
+jobs:
+  refactor:
+    runs-on: ubuntu-latest  # Specifies the runner environment (Linux)
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3  # Fetches your GitHub repository code
+
+      - name: Setup Python
+        uses: actions/setup-python@v3  # Installs Python
+        with:
+          python-version: '3.9'  # Define Python version
+
+      - name: Install Dependencies
+        run: pip install pylint autopep8 black radon rope flake8 vulture isort
+        # Installs the required Python libraries for refactoring
+
+      - name: Run Code Optimization Script
+        run: python touch refactor.py
+        # Runs the Python script to refactor and optimize code
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "🚀 Auto-Refactored Code"
+          git push
+        # Commits the refactored code back to GitHub
