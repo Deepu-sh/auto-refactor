@@ -22,7 +22,7 @@ jobs:
         # Installs the required Python libraries for refactoring
 
       - name: Run Code Optimization Script
-        run: python touch refactor.py
+        run: python refactor.py
         # Runs the Python script to refactor and optimize code
 
       - name: Commit and Push Changes
